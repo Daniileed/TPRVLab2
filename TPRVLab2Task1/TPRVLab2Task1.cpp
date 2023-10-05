@@ -10,8 +10,8 @@
 using namespace cv;
 using namespace std;
 
-const int Length =2048;
-const int Height = 1536;
+const int Length = 1280;
+const int Height = 960;
 string filename = "C://Users//danii//source//repos//TPRVLab2Task1//" + std::to_string(Length) + "x" + std::to_string(Height) + ".jpg";
 
 int** Rv = new int* [Height];
@@ -172,7 +172,7 @@ int main() {
         }
     
 
-#pragma omp sections nowait
+#pragma omp sections 
     {
 #pragma omp section 
         {
@@ -225,7 +225,6 @@ int main() {
             MRv[i][j] = (MRv[i][j] * 255) / MRMax;
         }
     }
-
 }
 
     Mat Sobel_scale_OMP = Mat::zeros(Height, Length, CV_8UC1);
@@ -236,9 +235,6 @@ int main() {
                 Sobel_scale_OMP.at<uchar>(i, j) = MRv[i][j];
             }
         }
-
-        
-
 
     auto end_2 = std::chrono::high_resolution_clock::now();
     std::chrono::duration<float> dur2 = (end_2 - start_2) * 1000;
